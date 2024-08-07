@@ -1,0 +1,12 @@
+{
+    "apps": [
+      {
+        "name": "utility",
+        "script": "gunicorn",
+        "args": "-c gunicorn_config/knowledge_store_gunicorn.py knowledge_store:app",
+        "exec_interpreter": "none",
+        "exec_mode": "fork"
+      }
+    ]
+  }
+  

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Query API Test</title>
+    <script>
+        async function queryAPI(event) {
+            event.preventDefault();
+
+            const queryStr = document.getElementById('queryStr').value;
+
+            const response = await fetch('http://localhost:7000/query', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ query_str: queryStr })
+            });
+
+            const result = await response.json();
+
+            document.getElementById('result').innerText = JSON.stringify(result, null, 2);
+
+            if (result.response && result.response.image) {
+                const imgElement = document.getElementById('resultImage');
+                imgElement.src = 'data:image/png;base64,' + result.response.image;
+                imgElement.style.display = 'block';
+            } else {
+                document.getElementById('resultImage').style.display = 'none';
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Query API Test</h1>
+    <form id="queryForm" onsubmit="queryAPI(event)">
+        <label for="queryStr">Query:</label>
+        <input type="text" id="queryStr" name="queryStr" required>
+        <button type="submit">Submit</button>
+    </form>
+    <h2>Result:</h2>
+    <pre id="result"></pre>
+    <h2>Image:</h2>
+    <img id="resultImage" style="display: none;" alt="Result Image">
+</body>
+</html>

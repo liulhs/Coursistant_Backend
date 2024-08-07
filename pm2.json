@@ -1,0 +1,19 @@
+{
+    "apps": [
+      {
+        "name": "pdf-query-api",
+        "script": "gunicorn",
+        "args": "-c gunicorn_config/gunicorn_config_pdf_query.py pdf_api:app",
+        "exec_interpreter": "none",
+        "exec_mode": "fork"
+      },
+      {
+        "name": "piazza-query-api",
+        "script": "gunicorn",
+        "args": "-c gunicorn_config/gunicorn_config_piazza_query.py piazza_query_api.piazza_api:app",
+        "exec_interpreter": "none",
+        "exec_mode": "fork"
+      }
+    ]
+  }
+  
